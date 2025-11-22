@@ -6,7 +6,7 @@ from ultralytics import YOLO
 
 # --- CONFIGURATION ---
 MODEL_PATH = "weights.pt"
-# Coin Values (Must match model class names)
+# Coin Values
 COIN_VALUES = {
     "5ft": 5,
     "10ft": 10,
@@ -112,7 +112,6 @@ class CoinCounterApp:
             label_text = f"{label_name} {int(score * 100)}%"
             (text_w, text_h), baseline = cv2.getTextSize(label_text, cv2.FONT_HERSHEY_SIMPLEX, font_scale,
                                                          text_thickness)
-
             cv2.rectangle(original_image,
                           (x1, y1 - text_h - padding * 2),
                           (x1 + text_w + padding, y1),
@@ -136,7 +135,6 @@ class CoinCounterApp:
             color_hex = "#%02x%02x%02x" % color_rgb
             tag_name = f"color_{coin_name}"
             self.txt_details.tag_configure(tag_name, foreground=color_hex, font=("Consolas", 14, "bold"))
-
             self.txt_details.insert(tk.END, "  ■ ", tag_name)
             line = f"{count}x  {coin_name:<8} = {count * COIN_VALUES.get(coin_name, 0)} Ft\n"
             self.txt_details.insert(tk.END, line)
